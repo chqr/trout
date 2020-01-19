@@ -6,13 +6,13 @@ Trout (short for "T Routes") is a simple tool for retrieving information about M
 
 ### Ruby
 
-Build the gem (see (Developer Setup)[#developer-setup]) and then
+Build the gem (see [Developer Setup](#developer-setup)) and then
 
     gem install pkg/trout-0.0.1.gem
 
 ### Docker
 
-Build the Docker image (see (Developer Setup)[#developer-setup]) and then
+Build the Docker image (see [Developer Setup](#developer-setup)) and then
 
      docker run --rm -it trout --help
 
