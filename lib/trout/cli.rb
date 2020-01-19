@@ -1,17 +1,18 @@
 # frozen_string_literal: true
+
 #
 # Specifies command-line interface, using the Clamp library
 #
 module Trout
   class CLI < Clamp::Command
-
     # Global options
     option '--debug', :flag, 'Enable debug logging'
 
     option '--format', 'FORMAT',
            'Output format: "json", "yaml"',
            default: :yaml do |arg|
-             raise ArgumentError unless %w( json yaml ).include?(arg)
+             raise ArgumentError unless %w[json yaml].include?(arg)
+
              arg.to_sym
            end
 
@@ -27,7 +28,7 @@ module Trout
       begin
         data = main
       rescue ArgumentError => e
-        $stderr.puts e.message
+        warn e.message
         exit 1
       end
       puts format_data(data)
@@ -53,8 +54,7 @@ module Trout
 
     # Subcommands should override this method, returning
     # simple JSON-style output to be presented to user
-    def main
-    end
+    def main; end
 
     subcommand 'list', 'List all subway routes' do
       def main
@@ -79,7 +79,7 @@ module Trout
     subcommand 'transfer-stops', 'List all stops that connect multiple routes' do
       def main
         stops = map.transfer_stops
-        stops.collect do |stop, routes|
+        stops.collect do |stop, _routes|
           [stop.name, stop.routes.collect(&:name)]
         end.to_h
       end

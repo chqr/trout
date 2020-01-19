@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'routes-traveled', vcr: { cassette_name: 'default' } do
   context 'valid args' do
     before (:each) do
@@ -67,7 +69,7 @@ RSpec.describe 'routes-traveled', vcr: { cassette_name: 'default' } do
     describe 'routes-traveled State Park' do
       it do
         expect(cmd.output.from_yaml).to match(['Orange Line', 'Red Line']).or \
-                                        match(['Blue Line', /^Green Line [CDE]$/])
+          match(['Blue Line', /^Green Line [CDE]$/])
       end
     end
 

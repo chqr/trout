@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Identifies which routes must be traveled to get from one
 # stop to another.
@@ -37,6 +39,7 @@ module Trout
 
           @graph[node].each do |adj|
             next if parents[adj] # already visited
+
             parents[adj] = node
             queue.push(adj)
           end
@@ -53,6 +56,7 @@ module Trout
         return path.keys.reverse if parent == ROOT
         raise Error, 'Broken path' if parent.nil?
         raise Error, 'Infinite loop?' if path[parent]
+
         build_path(parents, parent, path)
       end
     end

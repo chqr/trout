@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Pulls data from MBTA's API and massages it into a convenient form for the
 # map class.
@@ -6,7 +8,7 @@ module Trout
   class Map
     class Builder
       # Subway transport types
-      SUBWAY_TYPES = [0, 1]
+      SUBWAY_TYPES = [0, 1].freeze
 
       # Build and return a new Map
       def build

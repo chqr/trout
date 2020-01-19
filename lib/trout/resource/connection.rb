@@ -21,7 +21,7 @@ module Trout
 
           # Automatically parse json response bodies
           conn.response :json,
-            content_type: /\bjson$/
+                        content_type: /\bjson$/
 
           # Raise error on 4xx / 5xx responses
           conn.response :raise_error

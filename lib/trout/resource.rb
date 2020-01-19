@@ -35,7 +35,7 @@ module Trout
       # Request path for this endpoint
       # Eg. 'Route' -> /routes
       def path
-        "/#{type_name}s" # TODO - use pluralize from active-support
+        "/#{type_name}s" # TODO: - use pluralize from active-support
       end
 
       # Fetch multiple objects from the MBTA API with a GET request.
@@ -49,18 +49,14 @@ module Trout
       def fetch(filter: {}, fields: [], include: [])
         params = {}
 
-        unless fields.empty?
-          params["fields[#{type_name}]"] = fields * ','
-        end
+        params["fields[#{type_name}]"] = fields * ',' unless fields.empty?
 
         filter.each_pair do |attr, value|
-          value = value * ',' if value.kind_of?(Array)
+          value *= ',' if value.is_a?(Array)
           params["filter[#{attr}]"] = value.to_s
         end
 
-        unless include.empty?
-          params['include'] = include * ','
-        end
+        params['include'] = include * ',' unless include.empty?
 
         response = connection.get(path, params)
         response.body['data'].map do |data|
@@ -71,14 +67,14 @@ module Trout
 
     # Two objects are equal if they have the same id
     def ==(other)
-      other.class == self.class && other.id == self.id
+      other.class == self.class && other.id == id
     end
 
     # Make sure we can use these objects as hash keys
-    alias_method :eql?, :==
+    alias eql? ==
 
     def hash
-      [self.class, self.id].hash
+      [self.class, id].hash
     end
   end
 end

@@ -44,7 +44,7 @@ module Trout
         end
       end
 
-      return paths.compact.min_by(&:size)
+      paths.compact.min_by(&:size)
     end
 
     private
@@ -58,6 +58,7 @@ module Trout
       if stop.nil? # No exact match found, try fuzzier match.
         stop = stops.find { |s| s.name.downcase.start_with?(name.downcase) }
         raise ArgumentError, "Unknown stop: #{name}" if stop.nil?
+
         warn "Expanded #{name.inspect} to #{stop.name.inspect}"
       end
 

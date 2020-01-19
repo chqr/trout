@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'shellwords'
 require 'stringio'
 
@@ -21,7 +23,7 @@ module Trout
         end
 
         def from_yaml
-          YAML.load(@output)
+          YAML.safe_load(@output)
         end
 
         def from_json
@@ -38,8 +40,10 @@ module Trout
       fakeerr = StringIO.new
 
       begin
-        realout, $stdout = $stdout, fakeout
-        realerr, $stderr = $stderr, fakeerr
+        realout = $stdout
+        $stdout = fakeout
+        realerr = $stderr
+        $stderr = fakeerr
         Trout::CLI.run('trout', args)
       rescue SystemExit => e
         result.status = e.status
@@ -53,6 +57,5 @@ module Trout
 
       result
     end
-
   end
 end

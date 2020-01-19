@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'list', vcr: { cassette_name: 'default' } do
   it 'should list all subway routes' do
     expect(cmd.status).to eq(0)
